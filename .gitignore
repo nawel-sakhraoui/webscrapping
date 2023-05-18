@@ -1,1 +1,5 @@
 key.txt
+.project
+.pydevproject
+*.csv
+
