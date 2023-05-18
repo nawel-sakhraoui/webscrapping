@@ -7,8 +7,8 @@ import re
 import functools
 #en utilisant openAI mettre les données text dans des tableau clean 
 
-openai.api_key  ="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"
-
+openai.api_key  =  open("key.txt", "r").read()
+print(openai.api_key )
 
 def get_completion(prompt, model="gpt-3.5-turbo"):
     messages = [{"role": "user", "content": prompt}]
@@ -21,7 +21,7 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
 
 
 
-instruction=""" dans le dict final tout le mots en minuscule singulier, 
+instruction=""" dans le dict final tout le mots en minuscule singulier sans accent, 
              mettre ce texte dans un dict avec les attributs suivants (Date, Vues,
             type: vente ou location, 
             vente par tranche ,

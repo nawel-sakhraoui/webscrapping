@@ -6,7 +6,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 
 
-#recuperer les addresse des annonces webscrapping 
+#recuperer les adresse des annonces webscrapping 
 
 options = webdriver.FirefoxOptions()
 options.add_argument('--ignore-certificate-errors')
