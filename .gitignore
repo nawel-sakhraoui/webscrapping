@@ -2,4 +2,4 @@ key.txt
 .project
 .pydevproject
 *.csv
-
+.settings

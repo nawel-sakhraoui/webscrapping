@@ -20,20 +20,21 @@ options.add_argument('--headless')
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()), options=options)
 
 listLinks =[]
-with open("links.csv", "r") as f:
+with open("links20.csv", "r") as f:
        listLinks= f.readlines()
 
 print(len(listLinks))
-count =1
-for l in listLinks: #['https://www.ouedkniss.com/local-location-alger-dely-brahim-algerie-d34319891',"https://www.ouedkniss.com/appartement-vente-f5-alger-ouled-fayet-algerie-d34214774"]:
+count =18017
+for l in listLinks[count:] :#['https://www.ouedkniss.com/local-location-alger-dely-brahim-algerie-d34319891',"https://www.ouedkniss.com/appartement-vente-f5-alger-ouled-fayet-algerie-d34214774"]:
   
     try :
         
-        
         print (f'''dict numero:{count}''')
-       
+        print(l)
+        driver.implicitly_wait(30) # seconds 
+
         driver.get(l)
-        time.sleep(2);
+        time.sleep(3);
    
         all_iframes = driver.find_elements(By.TAG_NAME,"iframe")
         #print ( driver.find_elements(By.TAG_NAME,"iframe")) 
@@ -52,13 +53,18 @@ for l in listLinks: #['https://www.ouedkniss.com/local-location-alger-dely-brahi
         else:
             print('No ads found')
 
-
+        
     
         keys=[""]
         #driver.switchTo().defaultContent();
         page_source = driver.page_source
         #print(page_source)
         soup = BeautifulSoup(page_source,features="html.parser")
+        dict = {}
+        
+       
+             
+               
         for c in soup.find_all('div',class_='col-sm-9 col-7'):
             temp = c.next_element
             if "<" in str(temp) :
@@ -92,7 +98,8 @@ for l in listLinks: #['https://www.ouedkniss.com/local-location-alger-dely-brahi
  
         keys = list(filter(lambda x: x != '', keys))
         i=0
-        dict = {}
+        print (keys)
+        
         for c in soup.find_all('div',class_='spec-name'):
           
             if (i <len(keys)):
@@ -123,6 +130,7 @@ for l in listLinks: #['https://www.ouedkniss.com/local-location-alger-dely-brahi
             pass
     
         try : 
+        
             dict['contact']= soup.find_all('h4', class_='text-h6 font-weight-medium text-capitalize')[0].next_element
     
         except: 
@@ -136,7 +144,7 @@ for l in listLinks: #['https://www.ouedkniss.com/local-location-alger-dely-brahi
         count = count+1
             
         if dict :
-            with open("rawdataLast.csv", "a") as f:
+            with open("rawdata30.csv", "a") as f:
                 f.write(json.dumps(dict)+"\n")
 
         time.sleep(1)
