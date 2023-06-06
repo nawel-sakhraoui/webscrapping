@@ -3,3 +3,4 @@ key.txt
 .pydevproject
 *.csv
 .settings
+.~*
